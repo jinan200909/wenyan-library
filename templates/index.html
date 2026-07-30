@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="/static/style.css">
+    <meta charset="UTF-8">
+    <title>靜的文言小库</title>
+</head>
+
+<body>
+
+<h1>靜的文言小库</h1>
+<h2>搜索</h2>
+
+<form method="post">
+
+<input 
+name="keyword"
+placeholder="输入词语，例如：之">
+
+<button name="search">
+搜索
+</button>
+
+</form>
+<h2>添加文言记录</h2>
+
+<form method="post">
+
+<p>
+词语：
+<input name="word">
+</p>
+
+
+<p>
+出处：
+<input name="source">
+</p>
+
+
+<p>
+解释：
+<input name="mean">
+</p>
+
+
+<p>
+备注：
+<input name="note">
+</p>
+
+
+<button name="save" type="submit">
+保存
+</button>
+
+</form>
+<h2>我的文言记录</h2>
+
+<div class="card-container">
+
+{% for card in cards %}
+
+<div class="card"
+style="
+left:{{card[1]}}px;
+top:{{card[2]}}px;
+transform:rotate({{card[3]}}deg);
+">
+
+<h2>{{card[0][1]}}</h2>
+
+<p>
+出处：{{card[0][2]}}
+</p>
+
+<p>
+解释：{{card[0][3]}}
+</p>
+
+<p>
+备注：{{card[0][4]}}
+</p>
+
+<p>
+记录时间：{{card[0][5]}}
+</p>
+
+<a href="/delete/{{card[0][0]}}">
+删除
+</a>
+
+<a href="/edit/{{card[0][0]}}">
+修改
+</a>
+
+</div>
+
+{% endfor %}
+    
+</div>
+
+</body>
+</html>
