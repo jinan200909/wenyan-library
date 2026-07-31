@@ -20,7 +20,7 @@ body::before {
     position: fixed;
     inset: 0;
     background: linear-gradient(rgba(0,0,0,0.45), rgba(0,0,0,0.45)),
-    url("/static/bg1.png");
+    url("/static/bg1.jpg");
     background-size: cover;
     background-position: center;
     background-attachment: fixed;
