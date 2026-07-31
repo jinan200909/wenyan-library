@@ -26,84 +26,22 @@ def init_db():
     conn.commit()
     conn.close()
 
-
-
-
 @app.route("/", methods=["GET","POST"])
 def home():
-
-    BASE_DIR = os.path.dirname(os.path.abspath(__file__))
-
     conn = sqlite3.connect(
         os.path.join(BASE_DIR, "words.db")
     )
+    conn.row_factory = sqlite3.Row
     cursor = conn.cursor()
-
-    if request.method == "POST":
-
-        # 判断是不是添加记录
-        if "save" in request.form:
-            pass
-            
-
-
-        # 判断是不是搜索
-        elif "search" in request.form:
-
-            keyword = request.form["keyword"]
-
-            cursor.execute(
-            """
-            SELECT id,word,source,mean,note,create_time
-            FROM words
-            WHERE word LIKE ?
-            """,
-            ('%' + keyword + '%',)
-            )
-
-            words = cursor.fetchall()
-
-            conn.close()
-
-            return render_template(
-                "index.html",
-                words=words
-            )
-
-
     # 默认显示全部
     cursor.execute(
         "SELECT id,word,source,mean,note,create_time FROM words"
     )
-
     words = cursor.fetchall()
-
-    cards = []
-
-    for item in words:
-
-        left = random.randint(50, 1000)
-
-        top = random.randint(50, 400)
-
-        rotate = random.randint(-12, 12)
-
-
-        cards.append(
-            (
-                item,
-                left,
-                top,
-                rotate
-            )
-        )
-
     conn.close()
-
-
     return render_template(
         "index.html",
-        cards=cards
+        words=words
     )
 
 @app.route("/delete/<int:id>")

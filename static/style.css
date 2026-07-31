@@ -10,9 +10,26 @@
     --time-color: #777;
 }
 
-html, body {
-    height: 100%;
-    overflow: hidden;
+html {
+    min-height: 100%;
+    margin: 0;
+}
+
+body::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    background: linear-gradient(rgba(0,0,0,0.45), rgba(0,0,0,0.45)),
+    url("/static/bg1.png");
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+    filter: blur(5px);
+    z-index: -1;
+}
+
+body {
+    position: relative;
 }
 
 .title-box {
@@ -20,22 +37,25 @@ html, body {
     display: flex;
     flex-direction: column;
     padding-bottom: 30px;
-    border-bottom: 1px solid #333;
+    border-bottom: 1px solid var(--border);
 }
 
 .title-box h1 {
+    font-size: 34px;
     white-space: nowrap;
+    margin-bottom: 20px;
+    text-align: center;
 }
 
 #time {
-    margin-top: 6px;
     color: var(--time-color);
     font-size: 20px;
+    text-align: center;
 }
 
 h1 {
     display: inline-block;
-    margin-top: 0px;
+    margin-top: 0;
     margin-bottom: 0;
     color: var(--title-color);
 }
@@ -45,17 +65,30 @@ body {
     color: var(--text);
     font-family: "SimSun", "宋体", sans-serif;
     margin: 0;
-    padding: 20px;
+    padding: 10px;
 }
 
 .layout {
     display: flex;
-    min-height: 100vh;
+    align-items: flex-start;
 }
 
 .sidebar {
-    width: max-content;
-    padding: 30px 20px;
+    width: 270px;
+    height: calc(100vh - 40px);
+    margin: 10px;
+    padding: 30px;
+    flex-shrink: 0;
+    position: sticky;
+    top: 20px;
+    border-radius: 25px;
+    /* 半透明玻璃 */
+    background: rgba(255,255,255,0.12);
+    /* 磨砂 */
+    backdrop-filter: blur(15px);
+    -webkit-backdrop-filter: blur(15px);
+    border: 1px solid rgba(255,255,255,0.35);
+    box-sizing: border-box;
 }
 
 .navbar {
@@ -63,38 +96,102 @@ body {
     flex-direction: column;
     width: max-content;
     gap: 14px;
-    margin-top: 20px;
+    margin-top: 100px;
     margin-left: 0;
     align-items: flex-start;
-    background-color: var(--bg);
 }
 
 
 .navbar a {
-    display: inline-block;
-    width: max-content;
-    text-decoration: none;
-    background-color: var(--card);
-    border: 0.5px solid var(--border);
-    color: #DDD;
-    font-size: 24px;
-    padding: 7px 12px;
-    border-radius: 999px;
-    transition: .2s;
+    width:220px;
+    height:55px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    border:1px solid rgba(255,255,255,0.25);
+    color:#ddd;
+    font-size:22px;
+    border-radius:30px;
+    text-decoration:none;
+    transition:.3s;
 }
 
 .navbar a.active {
-    color: var(--gold);
-    background: var(--border);
+    color:var(--gold);
+    border-color:var(--gold);
+    box-shadow:
+    0 0 15px rgba(201,162,39,.6);
 }
 
 .navbar a:hover {
-    background: var(--border);
+    background: rgba(255,255,255,0.18);
     color: var(--gold);
-    transform: translateX(2px) translateY(2px);
+    transform: scale(0.98);
+}
+
+.sidebar::after {
+    content:"© 靜";
+    position:absolute;
+    bottom:25px;
+    left:50%;
+    transform:translateX(-50%);
+    color: var(--subtext);
+
 }
 
 .content {
-    height: 100vh;
-    overflow-y: auto;
+    flex: 1;
+    padding: 0;
+}
+
+.waterfall {
+    columns: 5;
+    column-gap: 15px;
+    padding-right: 10px;
+    padding-left: 10px;
+    margin-top: 10px;
+}
+
+.word-card {
+    width: auto;
+    break-inside: avoid;
+    margin-bottom: 15px;
+    padding: 16px;
+    border: 1px solid var(--border);
+    border-radius: 18px;
+    transition: .3s;
+}
+
+.word-card h2 {
+    color: var(--gold);
+    margin-top:0;
+    font-size:24px;
+}
+
+.source {
+    color: var(--subtext);
+    font-size: 14px;
+    margin-bottom: 5px;
+}
+
+.word-card p {
+    color:var(--subtext);
+    line-height:1;
+}
+
+.word-card:hover {
+    transform:translateY(-5px);
+    border-color:var(--gold);
+}
+
+@media(max-width:1000px){
+    .waterfall{
+        columns:2;
+    }
+}
+
+@media(max-width:600px){
+    .waterfall{
+        columns:1;
+    }
 }
