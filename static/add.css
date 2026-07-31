@@ -1,0 +1,230 @@
+:root {
+    --bg: rgba(0,0,0,0.45);
+    --card: #1E1E1E;
+    --border: #444;
+    --text: #E8E8E8;
+    --subtext: #999;
+    --gold: #C9A227;
+    --title-color: #B08D2C;
+    --time-color: #777;
+    --side-color: rgba(255,255,255,0.1);
+    --side-bg: rgba(255,255,255,0.18);
+    --side-border: rgba(255,255,255,0.35);
+    --shadow: rgba(201,162,39,.6);
+
+    --card-color: rgba(0,0,0,0.07);
+    --card-border: rgba(255,255,255,0.35);
+    
+    --btn-gold: rgba(201,162,39,0.75);
+
+    --screen-height: 0
+    --screen-width:0
+}
+
+
+/* 黑色模糊层 */
+
+.content #overlay {
+    display: none;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background:var(--card-color);
+    backdrop-filter:blur(4px);
+    z-index: 50;
+}
+
+/* 弹窗 */
+
+#add-modal {
+    width: 300px;
+    height: 450px;
+    display: none;
+    position: fixed;
+    left: 50%;
+    top: calc(var(--screen-height)/2);
+    transform: translate(-50%,-50%);
+    background: var(--side-bg);
+    backdrop-filter:blur(20px);
+    border: 0.5px solid var(--card-border);
+    border-radius:30px;
+    z-index: 100;
+    padding: 10px 30px;
+    /* 半透明玻璃 */
+    background: var(--side-bg);
+    /* 磨砂 */
+    backdrop-filter: blur(2px);
+    -webkit-backdrop-filter: blur(2px);
+    border: 0.5px solid var(--card-border);
+}
+
+#add-modal.show {
+    display: block;
+    animation: pop .3s;
+}
+
+#add-modal.close {
+    display: block;
+    animation: disapp .1s forwards;
+}
+
+#overlay.show {
+    display: block;
+}
+
+#close-btn {
+    display: none;
+}
+
+#close-btn.show {
+    display: block;
+}
+
+@keyframes pop{
+from{
+    transform: translate(-50%,-50%)
+    scale(.5);
+}
+
+to{
+    transform: translate(-50%,-50%)
+    scale(1);
+}
+}
+
+@keyframes disapp{
+from{
+    transform: translate(-50%,-50%)
+    scale(1);
+}
+
+to{
+    transform: translate(-50%,-50%)
+    scale(0.5);
+}
+
+to{
+    display: none;
+}
+}
+
+#add-modal h2 {
+    text-align: center;
+    margin-top: 10px;
+    margin-bottom: 8px;
+    font-size: 32px;
+    color: var(--gold)
+}
+
+.input-box,
+.textarea-box {
+    position:relative;
+    width:300px;
+    margin-bottom: 7px;
+}
+
+.input-box input {
+    box-sizing: border-box;
+    width:300px;
+    height:45px;
+    padding:7px 20px;
+    border-radius:999px;
+    border:0.5px solid var(--card-border);
+    background:var(--card-color);
+    backdrop-filter:blur(4px);
+    color:var(--gold);
+    font-family: inherit;
+    font-size:24px;
+    outline:none;
+}
+
+/* 默认文字 */
+.input-box label,
+.textarea-box label {
+    position:absolute;
+    left:50%;
+    top:50%;
+    transform:translate(-50%, -50%);
+    text-align: center;
+    color:var(--subtext);
+    font-size:24px;
+    transition:0.3s;
+    pointer-events:none;
+}
+
+.textarea-box textarea {
+    box-sizing: border-box;
+    width: 300px;
+    height: 130px;
+    resize: none;
+
+    padding: 7px 20px;
+    border-radius: 22.5px;
+    border:0.5px solid var(--card-border);
+    background:var(--card-color);
+    backdrop-filter:blur(4px);
+    color:var(--gold);
+    font-family: inherit;
+    font-size:24px;
+    outline:none;
+}
+
+.input-box input:focus + label,
+.input-box input:not(:placeholder-shown) + label,
+.textarea-box textarea:focus + label,
+.textarea-box textarea:not(:placeholder-shown) + label {
+    top:6px;
+    left:10%;
+    font-size:11px;
+    padding:0 15px;
+    color:var(--gold);
+    background-color: transparent;
+}
+
+.input-box input:focus,
+.input-box input:not(:placeholder-shown),
+.textarea-box textarea:focus,
+.textarea-box textarea:not(:placeholder-shown) {
+    border:0.5px solid var(--gold);
+}
+
+.modal-btn {
+    margin-top: 4px;
+    display: flex;
+    flex-direction: row;
+    column-gap: 25px;
+}
+
+.modal-btn button {
+    width:145px;
+    height:45px;
+    color:var(--text);
+    font-family: inherit;
+    font-size:26px;
+    border-radius:999px;
+    text-decoration:none;
+    transition:.3s;
+    /* 半透明玻璃 */
+    background: transparent;
+    border: 1px solid var(--side-border);
+    box-shadow: none;
+}
+
+#ok-btn {
+    background: var(--btn-gold);
+    backdrop-filter: blur(5px);
+    -webkit-backdrop-filter: blur(5px);
+}
+
+.modal-btn button:hover {
+    background: var(--side-bg);
+    color: var(--gold);
+    transform: scale(0.98);
+}
+
+#ok-btn:hover {
+    background: var(--gold);
+    color: var(--card);
+}

@@ -11,13 +11,13 @@ def init_db():
         os.path.join(BASE_DIR, "words.db")
     )
     cursor = conn.cursor()
-
     cursor.execute("""
     CREATE TABLE IF NOT EXISTS words(
         id INTEGER PRIMARY KEY AUTOINCREMENT,
         word TEXT,
-        source TEXT,
         mean TEXT,
+        source TEXT,
+        sentence TEXT,
         note TEXT,
         create_time TEXT
     )
@@ -35,46 +35,63 @@ def home():
     cursor = conn.cursor()
     # 默认显示全部
     cursor.execute(
-        "SELECT id,word,source,mean,note,create_time FROM words"
+        "SELECT id,word,mean,source,sentence,note FROM words"
     )
     words = cursor.fetchall()
+    if request.method == "POST":
+        print(111)
+        word = request.form.get("word","").strip()
+        source = request.form.get("source","").strip()
+        sentence = request.form.get("sentence", "").strip()
+        if source and not (source.startswith("《") and source.endswith("》")):
+            source = f"《{source}》"
+        if sentence and not (sentence.startswith("“") and sentence.endswith("”")):
+            sentence = f"“{sentence}”"
+        mean = request.form.get("mean","").strip()
+        note = request.form.get("note","").strip()
+        create_time = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+
+
+        cursor.execute(
+        """
+        INSERT INTO words
+        (word,mean,source,sentence,note,create_time)
+        VALUES(?,?,?,?,?,?)
+        """,
+        (word,mean,source,sentence,note,create_time)
+        )
+
+        conn.commit()
+        conn.close()
+        return redirect("/")
+    
     conn.close()
     return render_template(
         "index.html",
         words=words
     )
 
-@app.route("/delete/<int:id>")
-def delete(id):
-
-    conn = sqlite3.connect("words.db")
-
-    cursor = conn.cursor()
-
-    cursor.execute(
-        "DELETE FROM words WHERE id=?",
-        (id,)
-    )
-
-    conn.commit()
-
-    conn.close()
-
-    return redirect("/")
-
 @app.route("/add", methods=["GET", "POST"])
 def add():
     conn = sqlite3.connect(
         os.path.join(BASE_DIR, "words.db")
     )
+    conn.row_factory = sqlite3.Row
     cursor = conn.cursor()
+    # 默认显示全部
+    cursor.execute(
+        "SELECT id,word,mean,source,sentence,note FROM words"
+    )
+    words = cursor.fetchall()
 
     if request.method == "POST":
         word = request.form.get("word","").strip()
         source = request.form.get("source","").strip()
-
+        sentence = request.form.get("sentence", "").strip()
         if source and not (source.startswith("《") and source.endswith("》")):
             source = f"《{source}》"
+        if sentence and not (sentence.startswith("“") and sentence.endswith("”")):
+            sentence = f"“{sentence}”"
         mean = request.form.get("mean","").strip()
         note = request.form.get("note","").strip()
         create_time = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")

@@ -1,20 +1,69 @@
 {% extends "base.html" %}
-{% block content %}
 
-<div class="waterfall">
-    {% for word in words %}
-    <div class="word-card">
-        <h2>{{word["word"]}}</h2>
-        <p>出处：{{word["source"]}}</p>
-        <p>解释：{{word["mean"]}}</p>
-        {% if word["note"] %}
-            <p>备注：{{word["note"]}}</p>
-        {% endif %}
-        <p>记录时间：{{word["create_time"]}}</p>
+<div class="content">
+    {% block content %}
+
+    <div class="waterfall">
+        {% for word in words %}
+        <div class="word-card" data-id="{{word['id']}}">
+            <h2>{{word["word"]}}</h2>
+            <p class="mean">释义：{{word["mean"]}}</p>
+            {% if word["sentence"] or word["source"]%}
+                {% if not word["sentence"] %}<p class="sentence-source">——{{word["source"]}}</p>{% endif %}
+                {% if not word["source"] %}<p class="sentence-source">{{word["sentence"]}}</p>{% endif %}
+                {% if word["sentence"] and word["source"] %}<p class="sentence-source">{{word["sentence"]}}<br>——{{word["source"]}}</p>{% endif %}
+            {% endif %}
+            {% if word["note"] %}
+                <p class="note">备注：{{word["note"]}}</p>
+            {% endif %}
+            
+            <div class="card-btn">
+                <button class="edit-btn">
+                    编辑
+                </button>
+                <button class="delete-btn">
+                    删除
+                </button>
+            </div>
+        </div>
+        {% endfor %}
+
+        
     </div>
-    {% endfor %}
+    <div id="overlay"></div>
 
-    
+    <div id="add-modal">
+
+        <h2>添加词条</h2>
+
+        <form action="/" method="post" class="form-item">
+            <div class="input-box">
+                <input name="word" id="word" type="text" placeholder=" " required>
+                <label for="word">*字词</label>
+            </div>
+            <div class="input-box">
+                <input name="mean" id="mean" type="text" placeholder=" " required>
+                <label for="mean">*释义</label>
+            </div>
+            <div class="input-box">
+                <input name="source" id="source" type="text" placeholder=" ">
+                <label for="source">出处</label>
+            </div>
+            <div class="input-box">
+                <input name="sentence" id="sentence" type="text" placeholder=" ">
+                <label for="sentence">原句</label>
+            </div>
+            <div class="textarea-box">
+                <textarea name="note" id="note" placeholder=" " class="note"></textarea>
+                <label for="note">备注</label>
+            </div>
+            
+            <div class="modal-btn">
+                <button id="close-btn" type="button">取消</button>
+                <button id="ok-btn" type="submit">确认</button>
+            </div>
+        </form>
+
+    </div>
+    {% endblock %}
 </div>
-{% endblock %}
-

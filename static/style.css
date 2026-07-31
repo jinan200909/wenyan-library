@@ -1,6 +1,6 @@
 
 :root {
-    --bg: #121212;
+    --bg: rgba(0,0,0,0.45);
     --card: #1E1E1E;
     --border: #444;
     --text: #E8E8E8;
@@ -8,18 +8,29 @@
     --gold: #C9A227;
     --title-color: #B08D2C;
     --time-color: #777;
+    --side-color: rgba(255,255,255,0.1);
+    --side-bg: rgba(255,255,255,0.18);
+    --side-border: rgba(255,255,255,0.35);
+    --shadow: rgba(201,162,39,.6);
+
+    --card-color: rgba(0,0,0,0.07);
+    --card-border: rgba(255,255,255,0.35);
+
+    --screen-height: 0
+    --screen-width:0
 }
 
 html {
     min-height: 100%;
     margin: 0;
+    scrollbar-gutter: stable;
 }
 
 body::before {
     content: "";
     position: fixed;
     inset: 0;
-    background: linear-gradient(rgba(0,0,0,0.45), rgba(0,0,0,0.45)),
+    background: linear-gradient(var(--bg), var(--bg)),
     url("/static/bg1.jpg");
     background-size: cover;
     background-position: center;
@@ -33,7 +44,7 @@ body {
 }
 
 .title-box {
-    width: auto;
+    width: 160px;
     display: flex;
     flex-direction: column;
     padding-bottom: 30px;
@@ -42,7 +53,6 @@ body {
 
 .title-box h1 {
     font-size: 34px;
-    white-space: nowrap;
     margin-bottom: 20px;
     text-align: center;
 }
@@ -61,8 +71,6 @@ h1 {
 }
 
 body {
-    background-color: var(--bg);
-    color: var(--text);
     font-family: "SimSun", "宋体", sans-serif;
     margin: 0;
     padding: 10px;
@@ -74,20 +82,20 @@ body {
 }
 
 .sidebar {
-    width: 270px;
+    width: 180px;
     height: calc(100vh - 40px);
     margin: 10px;
-    padding: 30px;
+    padding: 50px 10px;
     flex-shrink: 0;
     position: sticky;
     top: 20px;
     border-radius: 25px;
     /* 半透明玻璃 */
-    background: rgba(255,255,255,0.12);
+    background: var(--side-color);
     /* 磨砂 */
-    backdrop-filter: blur(15px);
-    -webkit-backdrop-filter: blur(15px);
-    border: 1px solid rgba(255,255,255,0.35);
+    backdrop-filter: blur(5px);
+    -webkit-backdrop-filter: blur(5px);
+    border: 1px solid var(--side-border);
     box-sizing: border-box;
 }
 
@@ -96,37 +104,66 @@ body {
     flex-direction: column;
     width: max-content;
     gap: 14px;
-    margin-top: 100px;
+    margin-top: 70px;
     margin-left: 0;
     align-items: flex-start;
 }
 
 
 .navbar a {
-    width:220px;
+    width:158px;
     height:55px;
     display:flex;
     align-items:center;
     justify-content:center;
-    border:1px solid rgba(255,255,255,0.25);
-    color:#ddd;
-    font-size:22px;
-    border-radius:30px;
+    border:1px solid var(--side-border);
+    color:var(--text);
+    font-size:26px;
+    border-radius:999px;
     text-decoration:none;
     transition:.3s;
 }
 
-.navbar a.active {
-    color:var(--gold);
-    border-color:var(--gold);
-    box-shadow:
-    0 0 15px rgba(201,162,39,.6);
+.navbar button {
+    width:158px;
+    height:55px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    color:var(--text);
+    font-family: inherit;
+    font-size:26px;
+    border-radius:999px;
+    text-decoration:none;
+    transition:.3s;
+    /* 半透明玻璃 */
+    background: transparent;
+    border: 1px solid var(--side-border);
+    box-shadow: none;
 }
 
 .navbar a:hover {
-    background: rgba(255,255,255,0.18);
+    background: var(--side-bg);
     color: var(--gold);
     transform: scale(0.98);
+}
+
+.navbar a.active {
+    color: var(--gold);
+    border-color: var(--gold);
+    box-shadow: 0 0 15px var(--shadow);
+}
+
+.navbar button:hover {
+    background: var(--side-bg);
+    color: var(--gold);
+    transform: scale(0.98);
+}
+
+.navbar button.active {
+    color: var(--gold);
+    border-color: var(--gold);
+    box-shadow: 0 0 15px var(--shadow);
 }
 
 .sidebar::after {
@@ -142,6 +179,7 @@ body {
 .content {
     flex: 1;
     padding: 0;
+    position: relative;
 }
 
 .waterfall {
@@ -160,23 +198,43 @@ body {
     border: 1px solid var(--border);
     border-radius: 18px;
     transition: .3s;
+    /* 半透明玻璃 */
+    background: var(--card-color);
+    /* 磨砂 */
+    backdrop-filter: blur(15px);
+    -webkit-backdrop-filter: blur(15px);
+    border: 0.5px solid var(--card-border);
 }
 
 .word-card h2 {
     color: var(--gold);
-    margin-top:0;
-    font-size:24px;
-}
-
-.source {
-    color: var(--subtext);
-    font-size: 14px;
-    margin-bottom: 5px;
+    margin-top: 0;
+    margin-bottom: 8px;
+    font-size: 29px;
 }
 
 .word-card p {
     color:var(--subtext);
-    line-height:1;
+    margin-top: 0;
+    margin-bottom: 0;
+}
+
+p.mean {
+    padding-bottom: 8px;
+}
+
+p.sentence-source {
+    color: var(--gold);
+    padding-top: 8px;
+    padding-bottom: 8px;
+    font-size: 20px;
+    border-top: 0.2px solid var(--card-border);
+}
+
+p.note {
+    border-top: 0.5px solid var(--card-border);
+    padding-top: 7px;
+    padding-bottom: 6px;
 }
 
 .word-card:hover {
@@ -195,3 +253,4 @@ body {
         columns:1;
     }
 }
+

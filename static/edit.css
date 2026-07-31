@@ -1,0 +1,31 @@
+:root {
+    --bg: rgba(0,0,0,0.45);
+    --card: #1E1E1E;
+    --border: #444;
+    --text: #E8E8E8;
+    --subtext: #999;
+    --gold: #C9A227;
+    --title-color: #B08D2C;
+    --time-color: #777;
+    --side-color: rgba(255,255,255,0.1);
+    --side-bg: rgba(255,255,255,0.18);
+    --side-border: rgba(255,255,255,0.35);
+    --shadow: rgba(201,162,39,.6);
+
+    --card-color: rgba(0,0,0,0.07);
+    --card-border: rgba(255,255,255,0.35);
+    
+    --btn-gold: rgba(201,162,39,0.75);
+
+    --screen-height: 0
+    --screen-width:0
+}
+
+.card-btn {
+    display: none;
+}
+
+body.edit-mode .card-btn {
+    display: flex;
+    gap: 10px;
+}

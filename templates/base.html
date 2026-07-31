@@ -2,9 +2,12 @@
 <!DOCTYPE html>
 <html>
 <head>
+
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <body>
 <link rel="stylesheet" href="/static/style.css">
+<link rel="stylesheet" href="/static/add.css">
+<link rel="stylesheet" href="/static/edit.css">
 
 <title>
     {% block title %}
@@ -15,36 +18,21 @@
 <div class="layout">
     <aside class="sidebar">
         <div class="title-box">
-            <h1>靜的文言小库</h1>
+            <h1>靜的<br>
+                文言小库</h1>
             <div id="time"></div>
         </div>
 
         <nav class="navbar">
-            <a href="/" 
-            {% if request.path == "/" %}class="active"{% endif %}>主页</a>
-            <a href="/add" 
-            {% if request.path == "/add" %}class="active"{% endif %}>添加</a>
-            <a href="/edit" 
-            {% if request.path == "/edit" %}class="active"{% endif %}>修改</a>
+            <button id="home-btn" class="active">主页</button>
+            <button id="add-btn" type="button">添加</button>
+            <button id="edit-btn" type="button">编辑</button>
             <a href="/search" 
             {% if request.path == "/search" %}class="active"{% endif %}>搜索</a>
+            <a href="/about" 
+            {% if request.path == "/about" %}class="active"{% endif %}>关于</a>
+            
         </nav>
-        <script>
-            function updateTime(){
-                const now = new Date();
-                const year = now.getFullYear();
-                const month = String(now.getMonth()+1).padStart(2,'0');
-                const day = String(now.getDate()).padStart(2,'0');
-                const hour = String(now.getHours()).padStart(2,'0');
-                const minute = String(now.getMinutes()).padStart(2,'0');
-                const second = String(now.getSeconds()).padStart(2,'0');
-
-                document.getElementById("time").innerHTML =
-                    `${year}-${month}-${day} ${hour}:${minute}:${second}`;
-            }
-            updateTime();
-            setInterval(updateTime,1000);
-        </script>
     </aside>
 
     <div class="content">
@@ -52,7 +40,7 @@
         {% endblock %}
     </div>
 </div>
-
+<script src="/static/main.js"></script>
 </body>
 </head>
 </html>
