@@ -42,13 +42,13 @@ def home():
         # 判断是不是添加记录
         if "save" in request.form:
 
-            word = request.form["word"]
+            word = request.form["word"].strip()
             source = request.form["source"].strip()
 
             if source and not (source.startswith("《") and source.endswith("》")):
                 source = f"《{source}》"
-            mean = request.form["mean"]
-            note = request.form["note"]
+            mean = request.form["mean"].strip()
+            note = request.form["note"].strip()
             create_time = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
 
 
@@ -151,16 +151,16 @@ def edit(id):
 
     if request.method == "POST":
 
-        word = request.form["word"]
+        word = request.form["word"].strip()
 
         source = request.form["source"].strip()
 
         if source and not (source.startswith("《") and source.endswith("》")):
             source = f"《{source}》"
 
-        mean = request.form["mean"]
+        mean = request.form["mean"].strip()
 
-        note = request.form["note"]
+        note = request.form["note"].strip()
 
         create_time = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
 
