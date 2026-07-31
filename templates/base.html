@@ -1,0 +1,57 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+<body>
+<link rel="stylesheet" href="/static/style.css">
+
+<title>
+    {% block title %}
+    靜的文言小库
+    {% endblock %}
+</title>
+
+<div class="layout">
+    <aside class="sidebar">
+        <div class="title-box">
+            <h1>靜的文言小库</h1>
+            <div id="time"></div>
+        </div>
+
+        <nav class="navbar">
+            <a href="/" 
+            {% if request.path == "/" %}class="active"{% endif %}>主页</a>
+            <a href="/add" 
+            {% if request.path == "/add" %}class="active"{% endif %}>添加</a>
+            <a href="/edit" 
+            {% if request.path == "/edit" %}class="active"{% endif %}>修改</a>
+            <a href="/search" 
+            {% if request.path == "/search" %}class="active"{% endif %}>搜索</a>
+        </nav>
+        <script>
+            function updateTime(){
+                const now = new Date();
+                const year = now.getFullYear();
+                const month = String(now.getMonth()+1).padStart(2,'0');
+                const day = String(now.getDate()).padStart(2,'0');
+                const hour = String(now.getHours()).padStart(2,'0');
+                const minute = String(now.getMinutes()).padStart(2,'0');
+                const second = String(now.getSeconds()).padStart(2,'0');
+
+                document.getElementById("time").innerHTML =
+                    `${year}-${month}-${day} ${hour}:${minute}:${second}`;
+            }
+            updateTime();
+            setInterval(updateTime,1000);
+        </script>
+    </aside>
+
+    <div class="content">
+        {% block content %}
+        {% endblock %}
+    </div>
+</div>
+
+</body>
+</head>
+</html>

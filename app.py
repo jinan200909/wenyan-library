@@ -3,10 +3,10 @@ import sqlite3, datetime, random, os
 
 app = Flask(__name__)
 app.config['TEMPLATES_AUTO_RELOAD'] = True
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+
 
 def init_db():
-    BASE_DIR = os.path.dirname(os.path.abspath(__file__))
-
     conn = sqlite3.connect(
         os.path.join(BASE_DIR, "words.db")
     )
@@ -27,6 +27,8 @@ def init_db():
     conn.close()
 
 
+
+
 @app.route("/", methods=["GET","POST"])
 def home():
 
@@ -41,27 +43,8 @@ def home():
 
         # 判断是不是添加记录
         if "save" in request.form:
-
-            word = request.form["word"].strip()
-            source = request.form["source"].strip()
-
-            if source and not (source.startswith("《") and source.endswith("》")):
-                source = f"《{source}》"
-            mean = request.form["mean"].strip()
-            note = request.form["note"].strip()
-            create_time = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-
-
-            cursor.execute(
-            """
-            INSERT INTO words
-            (word,source,mean,note,create_time)
-            VALUES(?,?,?,?,?)
-            """,
-            (word,source,mean,note,create_time)
-            )
-
-            conn.commit()
+            pass
+            
 
 
         # 判断是不是搜索
@@ -141,6 +124,39 @@ def delete(id):
 
     return redirect("/")
 
+@app.route("/add", methods=["GET", "POST"])
+def add():
+    conn = sqlite3.connect(
+        os.path.join(BASE_DIR, "words.db")
+    )
+    cursor = conn.cursor()
+
+    if request.method == "POST":
+        word = request.form.get("word","").strip()
+        source = request.form.get("source","").strip()
+
+        if source and not (source.startswith("《") and source.endswith("》")):
+            source = f"《{source}》"
+        mean = request.form.get("mean","").strip()
+        note = request.form.get("note","").strip()
+        create_time = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+
+
+        cursor.execute(
+        """
+        INSERT INTO words
+        (word,source,mean,note,create_time)
+        VALUES(?,?,?,?,?)
+        """,
+        (word,source,mean,note,create_time)
+        )
+
+        conn.commit()
+        conn.close()
+        return redirect("/")
+    
+    return render_template("add.html")
+
 @app.route("/edit/<int:id>", methods=["GET","POST"])
 def edit(id):
 
@@ -212,7 +228,5 @@ def edit(id):
     )
 
 if __name__ == "__main__":
-
     init_db()
-
-    app.run(host='0.0.0.0', port=5000)
+    app.run(host='0.0.0.0', port=5000, debug=True)
