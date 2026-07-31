@@ -2,7 +2,7 @@ from flask import Flask, render_template, request, redirect
 import sqlite3, datetime, random, os
 
 app = Flask(__name__)
-
+app.config['TEMPLATES_AUTO_RELOAD'] = True
 
 def init_db():
     BASE_DIR = os.path.dirname(os.path.abspath(__file__))
