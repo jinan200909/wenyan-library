@@ -1,25 +1,4 @@
 
-:root {
-    --bg: rgba(0,0,0,0.45);
-    --card: #1E1E1E;
-    --border: #444;
-    --text: #E8E8E8;
-    --subtext: #999;
-    --gold: #C9A227;
-    --title-color: #B08D2C;
-    --time-color: #777;
-    --side-color: rgba(255,255,255,0.1);
-    --side-bg: rgba(255,255,255,0.18);
-    --side-border: rgba(255,255,255,0.35);
-    --shadow: rgba(201,162,39,.6);
-
-    --card-color: rgba(0,0,0,0.07);
-    --card-border: rgba(255,255,255,0.35);
-
-    --screen-height: 0
-    --screen-width:0
-}
-
 html {
     min-height: 100%;
     margin: 0;
@@ -40,21 +19,48 @@ body::before {
 }
 
 body {
-    position: relative;
+    font-family: "SimSun", "宋体", sans-serif;
+    margin: 0;
+    padding: 10px;
+}
+
+.top-nav {
+    box-sizing: border-box;
+    width: 100%;
+    height: 60px;
+    padding: 10px 20px;
+    flex-shrink: 0;
+    position: sticky;
+    top: 10px;
+    border-radius: 25px;
+
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    /* 半透明玻璃 */
+    background: var(--side-bg);
+    /* 磨砂 */
+    backdrop-filter: blur(3px);
+    -webkit-backdrop-filter: blur(3px);
+    border: 1px solid var(--side-border);
+
+    z-index: 100;
 }
 
 .title-box {
-    width: 160px;
+    width: max-content;
     display: flex;
-    flex-direction: column;
-    padding-bottom: 30px;
-    border-bottom: 1px solid var(--border);
+    flex-direction: row;
+    align-items: center;
 }
 
 .title-box h1 {
     font-size: 34px;
     margin-bottom: 20px;
+    color: var(--gold);
     text-align: center;
+    margin: 0;
+    margin-right: 20px;
 }
 
 #time {
@@ -63,76 +69,42 @@ body {
     text-align: center;
 }
 
-h1 {
-    display: inline-block;
-    margin-top: 0;
-    margin-bottom: 0;
-    color: var(--title-color);
-}
-
-body {
-    font-family: "SimSun", "宋体", sans-serif;
-    margin: 0;
-    padding: 10px;
-}
-
-.layout {
-    display: flex;
-    align-items: flex-start;
-}
-
-.sidebar {
-    width: 180px;
-    height: calc(100vh - 40px);
-    margin: 10px;
-    padding: 50px 10px;
-    flex-shrink: 0;
-    position: sticky;
-    top: 20px;
-    border-radius: 25px;
-    /* 半透明玻璃 */
-    background: var(--side-color);
-    /* 磨砂 */
-    backdrop-filter: blur(5px);
-    -webkit-backdrop-filter: blur(5px);
-    border: 1px solid var(--side-border);
-    box-sizing: border-box;
-}
-
 .navbar {
+    position: absolute;
+    right: 20px;
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
     width: max-content;
     gap: 14px;
-    margin-top: 70px;
-    margin-left: 0;
+    margin-top: 0px;
+    margin-right: 0px;
     align-items: flex-start;
 }
 
 
 .navbar a {
-    width:158px;
-    height:55px;
+    width:78px;
+    height:35px;
     display:flex;
     align-items:center;
     justify-content:center;
     border:1px solid var(--side-border);
     color:var(--text);
-    font-size:26px;
+    font-size:20px;
     border-radius:999px;
     text-decoration:none;
     transition:.3s;
 }
 
 .navbar button {
-    width:158px;
-    height:55px;
+    width:78px;
+    height:35px;
     display:flex;
     align-items:center;
     justify-content:center;
     color:var(--text);
     font-family: inherit;
-    font-size:26px;
+    font-size:20px;
     border-radius:999px;
     text-decoration:none;
     transition:.3s;
@@ -183,11 +155,11 @@ body {
 }
 
 .waterfall {
-    columns: 5;
+    columns: 6;
     column-gap: 15px;
-    padding-right: 10px;
-    padding-left: 10px;
-    margin-top: 10px;
+    padding-right: 5px;
+    padding-left: 5px;
+    margin-top: 20px;
 }
 
 .word-card {
@@ -195,14 +167,13 @@ body {
     break-inside: avoid;
     margin-bottom: 15px;
     padding: 16px;
-    border: 1px solid var(--border);
     border-radius: 18px;
     transition: .3s;
     /* 半透明玻璃 */
     background: var(--card-color);
     /* 磨砂 */
-    backdrop-filter: blur(15px);
-    -webkit-backdrop-filter: blur(15px);
+    backdrop-filter: blur(5px);
+    -webkit-backdrop-filter: blur(5px);
     border: 0.5px solid var(--card-border);
 }
 
@@ -244,13 +215,13 @@ p.note {
 
 @media(max-width:1000px){
     .waterfall{
-        columns:2;
+        columns:3;
     }
 }
 
 @media(max-width:600px){
     .waterfall{
-        columns:1;
+        columns:2;
     }
 }
 

@@ -5,6 +5,7 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <body>
+<link rel="stylesheet" href="/static/variables.css">
 <link rel="stylesheet" href="/static/style.css">
 <link rel="stylesheet" href="/static/add.css">
 <link rel="stylesheet" href="/static/edit.css">
@@ -15,30 +16,28 @@
     {% endblock %}
 </title>
 
-<div class="layout">
-    <aside class="sidebar">
-        <div class="title-box">
-            <h1>靜的<br>
-                文言小库</h1>
-            <div id="time"></div>
-        </div>
 
-        <nav class="navbar">
-            <button id="home-btn" class="active">主页</button>
-            <button id="add-btn" type="button">添加</button>
-            <button id="edit-btn" type="button">编辑</button>
-            <a href="/search" 
-            {% if request.path == "/search" %}class="active"{% endif %}>搜索</a>
-            <a href="/about" 
-            {% if request.path == "/about" %}class="active"{% endif %}>关于</a>
-            
-        </nav>
-    </aside>
-
-    <div class="content">
-        {% block content %}
-        {% endblock %}
+<header class="top-nav">
+    <div class="title-box">
+        <h1>靜的文言小库</h1>
+        <div id="time"></div>
     </div>
+
+    <nav class="navbar">
+        <button id="home-btn" class="active">主页</button>
+        <button id="add-btn" type="button">添加</button>
+        <button id="edit-btn" type="button">编辑</button>
+        <button id="search-btn" type="button">搜索</button>
+        <a href="/about" 
+        {% if request.path == "/about" %}class="active"{% endif %}>关于</a>
+        
+    </nav>
+</header>
+
+<div class="content">
+    {% block content %}
+    {% endblock %}
+</div>
 </div>
 <script src="/static/main.js"></script>
 </body>

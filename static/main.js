@@ -5,7 +5,7 @@ let overlay = document.getElementById("overlay");
 let closeBtn = document.getElementById("close-btn");
 let homeBtn = document.getElementById("home-btn");
 let editBtn = document.getElementById("edit-btn");
-let btnList = [homeBtn, addBtn, editBtn]
+let btnList = [homeBtn, addBtn, editBtn];
 
 btnList.forEach(element => {
     if(element){
