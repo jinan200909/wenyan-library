@@ -4,7 +4,7 @@
 <head>
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<body>
+<body id="scroll">
 <link rel="stylesheet" href="/static/variables.css">
 <link rel="stylesheet" href="/static/style.css">
 <link rel="stylesheet" href="/static/add.css">
@@ -24,9 +24,7 @@
     </div>
 
     <nav class="navbar">
-        <button id="home-btn" class="active">主页</button>
         <button id="add-btn" type="button">添加</button>
-        <button id="edit-btn" type="button">编辑</button>
         <button id="search-btn" type="button">搜索</button>
         <a href="/about" 
         {% if request.path == "/about" %}class="active"{% endif %}>关于</a>

@@ -14,7 +14,6 @@ body::before {
     background-size: cover;
     background-position: center;
     background-attachment: fixed;
-    filter: blur(5px);
     z-index: -1;
 }
 
@@ -22,6 +21,11 @@ body {
     font-family: "SimSun", "宋体", sans-serif;
     margin: 0;
     padding: 10px;
+    overflow: auto;
+}
+
+body.no-scroll {
+    overflow: hidden;
 }
 
 .top-nav {
@@ -97,21 +101,25 @@ body {
 }
 
 .navbar button {
-    width:78px;
-    height:35px;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    color:var(--text);
+    width: 78px;
+    height: 35px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--text);
     font-family: inherit;
-    font-size:20px;
-    border-radius:999px;
-    text-decoration:none;
-    transition:.3s;
+    font-size: 20px;
+    border-radius: 999px;
+    text-decoration: none;
+    transition: .3s;
     /* 半透明玻璃 */
     background: transparent;
     border: 1px solid var(--side-border);
     box-shadow: none;
+}
+
+.navbar button.disapp {
+    display: none;
 }
 
 .navbar a:hover {
@@ -130,12 +138,6 @@ body {
     background: var(--side-bg);
     color: var(--gold);
     transform: scale(0.98);
-}
-
-.navbar button.active {
-    color: var(--gold);
-    border-color: var(--gold);
-    box-shadow: 0 0 15px var(--shadow);
 }
 
 .sidebar::after {
@@ -163,47 +165,81 @@ body {
 }
 
 .word-card {
+    isolation: isolate;
     width: auto;
     break-inside: avoid;
     margin-bottom: 15px;
     padding: 16px;
     border-radius: 18px;
     transition: .3s;
+    transform: translateZ(0);
     /* 半透明玻璃 */
     background: var(--card-color);
     /* 磨砂 */
     backdrop-filter: blur(5px);
     -webkit-backdrop-filter: blur(5px);
     border: 0.5px solid var(--card-border);
+    z-index: 1;
 }
 
 .word-card h2 {
     color: var(--gold);
     margin-top: 0;
-    margin-bottom: 8px;
+    margin-bottom: 0px;
     font-size: 29px;
 }
 
 .word-card p {
-    color:var(--subtext);
     margin-top: 0;
     margin-bottom: 0;
 }
 
 p.mean {
-    padding-bottom: 8px;
+    margin-bottom: 8px;
+    display: flex;
+    align-items: baseline;
+    gap: 0px;
+}
+
+span.mean-subtext {
+    position: relative;
+    top: -3px;
+    flex-shrink: 0;
+    color: var(--subtext);
+    font-size: 14px;
+}
+
+span.mean {
+    color: var(--gold);
+    font-size: 22px;
+    flex: 1;
+    overflow-wrap: anywhere;
+    word-break: break-word;
 }
 
 p.sentence-source {
-    color: var(--gold);
     padding-top: 8px;
-    padding-bottom: 8px;
     font-size: 20px;
     border-top: 0.2px solid var(--card-border);
 }
 
+p.sentence {
+    color: var(--sentence);
+    margin-top: 0;
+    margin-bottom: 0;
+}
+
+p.source {
+    color: var(--gold);
+    margin-top: 0;
+    margin-bottom: 0;
+}
+
 p.note {
+    color: var(--subtext);
+    font-size: 14px;
     border-top: 0.5px solid var(--card-border);
+    margin-top: 8px;
     padding-top: 7px;
     padding-bottom: 6px;
 }

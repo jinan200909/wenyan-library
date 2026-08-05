@@ -3,40 +3,42 @@ let addBtn = document.getElementById("add-btn");
 let modal = document.getElementById("add-modal");
 let overlay = document.getElementById("overlay");
 let closeBtn = document.getElementById("close-btn");
-let homeBtn = document.getElementById("home-btn");
-let editBtn = document.getElementById("edit-btn");
-let btnList = [homeBtn, addBtn, editBtn];
+let okBtn = document.getElementById("ok-btn");
 
-btnList.forEach(element => {
-    if(element){
-        element.addEventListener("click", ()=>{
-            Navi(element);
-        })
-    }
-})
+let Scroll = document.getElementById("scroll");
+// let btnList = [addBtn];
 
-addBtn?.addEventListener("click", ()=>{
-    overlay?.classList.add("show");
-    modal?.classList.add("show");
-    modal?.classList.remove("close");
-    closeBtn?.classList.add("show");
-})
+// btnList.forEach(element => {
+//     if(element){
+//         element.addEventListener("click", ()=>{
+//             Navi(element);
+//         })
+//     }
+// })
+
+addBtn?.addEventListener("click", modalApp)
+closeBtn?.addEventListener("click", modalDisapp)
 
 function modalDisapp(){
     overlay?.classList.remove("show");
     modal?.classList.remove("show");
     modal?.classList.add("close");
     closeBtn?.classList.remove("show");
+    Scroll?.classList.remove("no-scroll");
+
+    addBtn?.classList.remove("disapp");
+
 }
 
-closeBtn?.addEventListener("click", modalDisapp)
+function modalApp(){
+    overlay?.classList.add("show");
+    modal?.classList.add("show");
+    modal?.classList.remove("close");
+    closeBtn?.classList.add("show");
+    Scroll?.classList.add("no-scroll");
 
-homeBtn?.addEventListener("click", modalDisapp)
-
-editBtn?.addEventListener("click", ()=>{
-    document.body.classList.toggle("edit-mode");
-    modalDisapp();
-})
+    addBtn?.classList.add("disapp");
+}
 
 
 function removeClasses(classname, elements){

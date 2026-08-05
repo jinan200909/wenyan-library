@@ -1,3 +1,5 @@
 words.db
 __pycache__/
 set.py
+import_data.py
+data.txt

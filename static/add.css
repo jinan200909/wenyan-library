@@ -3,13 +3,13 @@
 
 .content #overlay {
     display: none;
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background:var(--card-color);
-    backdrop-filter:blur(4px);
+    position: fixed;
+    inset: 0;
+    width: 100vw;
+    height: 100vh;
+    background: var(--card-color);
+    backdrop-filter: blur(4px);
+    -webkit-backdrop-filter: blur(4px);
     z-index: 50;
 }
 
@@ -48,14 +48,6 @@
 }
 
 #overlay.show {
-    display: block;
-}
-
-#close-btn {
-    display: none;
-}
-
-#close-btn.show {
     display: block;
 }
 
