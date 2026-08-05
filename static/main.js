@@ -6,6 +6,19 @@ let closeBtn = document.getElementById("close-btn");
 let okBtn = document.getElementById("ok-btn");
 
 let Scroll = document.getElementById("scroll");
+
+document.querySelectorAll(".delete-btn")
+.forEach(btn=>{
+    btn.addEventListener("click",(e)=>{
+        e.preventDefault();
+        e.stopPropagation();
+        let card = btn.closest(".word-card");
+        let id = card.dataset.id;
+        if(confirm("确定删除这个词条吗？")){
+            deleteWord(id, card);
+        }
+    });
+});
 // let btnList = [addBtn];
 
 // btnList.forEach(element => {
@@ -16,6 +29,17 @@ let Scroll = document.getElementById("scroll");
 //     }
 // })
 
+function deleteWord(id, card){
+    fetch(`/delete/${id}`,{
+        method:"POST"
+    })
+    .then(res=>{
+        if(res.ok){
+            // 删除页面上的卡片
+            card.remove();
+        }
+    });
+}
 addBtn?.addEventListener("click", modalApp)
 closeBtn?.addEventListener("click", modalDisapp)
 

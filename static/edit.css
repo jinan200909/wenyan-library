@@ -1,9 +1,27 @@
 
 .card-btn {
-    display: none;
+    opacity: 0;
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+    position: absolute;
+    bottom: 10px;
+    right: 10px;
 }
 
-body.edit-mode .card-btn {
-    display: flex;
-    gap: 10px;
+button {
+    background: transparent;
+    color: var(--text);
+    width: auto;
+    height: 25px;
+    border-radius: 999px;
+    border: 0.3px solid var(--card-border);
+}
+ 
+.word-card:hover .card-btn {
+    opacity: 1;
+}
+
+.card-btn button:hover {
+    background: var(--side-bg);
 }

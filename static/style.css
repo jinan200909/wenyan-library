@@ -165,6 +165,7 @@ body.no-scroll {
 }
 
 .word-card {
+    position: relative;
     isolation: isolate;
     width: auto;
     break-inside: avoid;
@@ -195,7 +196,7 @@ body.no-scroll {
 }
 
 p.mean {
-    margin-bottom: 8px;
+    margin-bottom: 0px;
     display: flex;
     align-items: baseline;
     gap: 0px;
@@ -219,6 +220,7 @@ span.mean {
 
 p.sentence-source {
     padding-top: 8px;
+    margin-top: 8px;
     font-size: 20px;
     border-top: 0.2px solid var(--card-border);
 }
@@ -241,12 +243,12 @@ p.note {
     border-top: 0.5px solid var(--card-border);
     margin-top: 8px;
     padding-top: 7px;
-    padding-bottom: 6px;
+    padding-bottom: 0px;
 }
 
 .word-card:hover {
-    transform:translateY(-5px);
     border-color:var(--gold);
+    padding-bottom: 40px;
 }
 
 @media(max-width:1000px){

@@ -71,116 +71,17 @@ def home():
         words=words
     )
 
-@app.route("/add", methods=["GET", "POST"])
-def add():
-    conn = sqlite3.connect(
-        os.path.join(BASE_DIR, "words.db")
-    )
-    conn.row_factory = sqlite3.Row
-    cursor = conn.cursor()
-    # 默认显示全部
-    cursor.execute(
-        "SELECT id,word,mean,source,sentence,note FROM words"
-    )
-    words = cursor.fetchall()
-
-    if request.method == "POST":
-        word = request.form.get("word","").strip()
-        source = request.form.get("source","").strip()
-        sentence = request.form.get("sentence", "").strip()
-        if source and not (source.startswith("《") and source.endswith("》")):
-            source = f"《{source}》"
-        if sentence and not (sentence.startswith("“") and sentence.endswith("”")):
-            sentence = f"“{sentence}”"
-        mean = request.form.get("mean","").strip()
-        note = request.form.get("note","").strip()
-        create_time = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-
-
-        cursor.execute(
-        """
-        INSERT INTO words
-        (word,source,mean,note,create_time)
-        VALUES(?,?,?,?,?)
-        """,
-        (word,source,mean,note,create_time)
-        )
-
-        conn.commit()
-        conn.close()
-        return redirect("/")
-    
-    return render_template("add.html")
-
-@app.route("/edit/<int:id>", methods=["GET","POST"])
-def edit(id):
-
+@app.route("/delete/<int:id>", methods=["POST"])
+def delete(id):
     conn = sqlite3.connect("words.db")
-
     cursor = conn.cursor()
-
-
-    if request.method == "POST":
-
-        word = request.form["word"].strip()
-
-        source = request.form["source"].strip()
-
-        if source and not (source.startswith("《") and source.endswith("》")):
-            source = f"《{source}》"
-
-        mean = request.form["mean"].strip()
-
-        note = request.form["note"].strip()
-
-        create_time = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-
-
-        cursor.execute(
-        """
-        UPDATE words
-        SET word=?,
-            source=?,
-            mean=?,
-            note=?,
-            create_time=?
-        WHERE id=?
-        """,
-        (word,source,mean,note,create_time,id)
-        )
-
-
-        conn.commit()
-
-        conn.close()
-
-
-        return redirect("/")
-
-
     cursor.execute(
-        """
-        SELECT word,source,mean,note
-        FROM words
-        WHERE id=?
-        """,
+        "DELETE FROM words WHERE id=?",
         (id,)
     )
-
-
-    data = cursor.fetchone()
-
-
+    conn.commit()
     conn.close()
-
-
-    return render_template(
-        "edit.html",
-        word=data[0],
-        source=data[1],
-        mean=data[2],
-        note=data[3]
-    )
+    return "ok"
 
 init_db()
 

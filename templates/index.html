@@ -4,7 +4,14 @@
 <div class="content">
     <div class="waterfall">
         {% for word in words %}
-        <div class="word-card" data-id="{{word['id']}}">
+        <div class="word-card" 
+        data-id="{{word['id']}}" 
+        data-word="{{word['word']}}"
+        data-mean="{{word['mean']}}"
+        data-source="{{word['source']}}"
+        data-sentence="{{word['sentence']}}"
+        data-note="{{word['note']}}">
+
             <h2>{{word["word"]}}</h2>
             <p class="mean"><span class="mean-subtext">释义：</span><span class="mean">{{word["mean"]}}</span></p>
             {% if word["sentence"] or word["source"]%}
@@ -19,13 +26,14 @@
             {% endif %}
             
             <div class="card-btn">
-                <button class="edit-btn">
-                    编辑
-                </button>
-                <button class="delete-btn">
-                    删除
-                </button>
+                <div class="card-edit">
+                    <button class="edit-btn">✎</button>
+                </div>
+                <div class="card-delete">
+                    <button class="delete-btn">🗑</button>
+                </div>
             </div>
+            
         </div>
         {% endfor %}
     </div>
